@@ -27,7 +27,7 @@ public class Leder : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        other.GetComponent<Rigidbody2D>().gravityScale = 1;
+        other.GetComponent<Rigidbody2D>().gravityScale = 2;
     }
     void Start()
     {

@@ -9,12 +9,13 @@ public class Monster : MonoBehaviour
     public Transform point;
     bool moveingRight = true;
     Transform player;
-    public float stopingDistance;
     bool chill = false;
     bool angry = false;
     bool goback = false;
     SpriteRenderer sr;
     Animator Ghoul;
+    public int health;
+    public float AngryPosition;
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -25,17 +26,23 @@ public class Monster : MonoBehaviour
     
     void Update()
     {
+        if (health<=0)
+        {
+            Colect.theCoins += 10;
+            Destroy(gameObject);
+            
+        }
         if (Vector2.Distance(transform.position, point.position) < positionOfPatrol && angry == false)
         {
             chill=true;
         }
-        if (Vector2.Distance(transform.position, player.position) < stopingDistance)
+        if (Vector2.Distance(transform.position, player.position) < AngryPosition)
         {
             angry = true;
             chill = false;
             goback = false;
         }
-        if (Vector2.Distance(transform.position, player.position) > stopingDistance)
+        if (Vector2.Distance(transform.position, player.position) > AngryPosition)
         {
             goback = true;
             angry = false;
@@ -79,9 +86,8 @@ public class Monster : MonoBehaviour
        
     }
     void Angry()
-    { Ghoul.SetInteger("Ghoul", 3);
-        transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-        speed = 4;
+    { Ghoul.SetInteger("Ghoul", 1);
+       
         if (transform.position.x < player.transform.position.x)
             sr.flipX = true;
           else if ( (transform.position.x > player.transform.position.x))
@@ -91,8 +97,20 @@ public class Monster : MonoBehaviour
     void GoBack()
     {
         transform.position = Vector2.MoveTowards(transform.position, point.position, speed * Time.deltaTime);
-        sr.flipX = true;
+
+        if (transform.position.x < point.transform.position.x)
+            sr.flipX = true;
+        else if ((transform.position.x > point.transform.position.x))
+            sr.flipX = false;
+
+
+
+
         Ghoul.SetInteger("Ghoul", 0);
        
+    }
+    public void TakeDamage( int damage)
+    {
+        health -= damage;
     }
 }

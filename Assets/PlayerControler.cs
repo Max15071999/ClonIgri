@@ -9,14 +9,13 @@ public class PlayerControler : MonoBehaviour
     Rigidbody2D rb;
     Animator Anim;
     SpriteRenderer sr;
-    [SerializeField]
-    GameObject attackingbox;
+   
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-        attackingbox.SetActive(false);
+       
 
     }
     private void FixedUpdate()
@@ -54,32 +53,36 @@ public class PlayerControler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+       
+            Anim.SetInteger("Anim",4);
             
-
-
-            
-            Anim.SetInteger("Anim",5);
-            StartCoroutine(DoAttack());
         }
 
 
 
     }
-    void OnTriggerEnter2D(Collider2D other)
+   private void OnTriggerEnter2D(Collider2D other )
     {
         if (other.tag == "Respawn")
         {
 
             SceneManager.LoadScene(0);
 
+            Colect.theCoins = 0;
+
+        }
+        if (other.tag == "Coins") 
+        { 
+            Colect.theCoins += 1;
+            Debug.Log("on trigger coins");
+            Destroy(other.gameObject);
         }
     }
-    IEnumerator DoAttack()
-    {
-        attackingbox.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        attackingbox.SetActive(false);
-      
-    }
+   
+
+
+
+
+
 
 }
