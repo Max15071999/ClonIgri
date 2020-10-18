@@ -7,7 +7,9 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
-   
+    public GameObject YouDead;
+    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -20,9 +22,10 @@ public class PauseMenu : MonoBehaviour
             {
                 Paused();
             }
-        }   
+
+        }
     }
-   public void Resume()
+    public void Resume()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
@@ -45,4 +48,13 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
     }
+    public void Restsrt()
+    {
+        SceneManager.LoadScene(1);
+        Colect.theCoins = 0;
+        pauseMenuUI.SetActive(false);
+        YouDead.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
 }

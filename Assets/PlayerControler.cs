@@ -12,6 +12,7 @@ public class PlayerControler : MonoBehaviour
     Rigidbody2D rb;
     Animator Anim;
     SpriteRenderer sr;
+    public GameObject YouDead;
    
     void Start()
     {
@@ -53,14 +54,16 @@ public class PlayerControler : MonoBehaviour
             Anim.SetInteger("Anim", 2);
             rb.AddForce(transform.up * 8, ForceMode2D.Impulse);
 
-        }  
+        }
+       
+        
     }
     private void OnTriggerEnter2D(Collider2D other )
     {
         if (other.tag == "Respawn")
         {
+            YouDead.SetActive(true);
 
-            SceneManager.LoadScene(0);
 
             Colect.theCoins = 0;
 
