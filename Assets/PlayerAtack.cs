@@ -11,16 +11,24 @@ public class PlayerAtack : MonoBehaviour
     public LayerMask enemy;
     public float attackRange;
     public int damage;
-   
+    Animator Anim;
     
 
 
-    private void Update()
+    void Start()
+    {
+        
+        Anim = GetComponent<Animator>();
+    }
+
+     void Update()
     {
         if (timeBtwAtack <= 0) 
         {
         if (Input.GetKey(KeyCode.F))
             {
+                Anim.SetInteger("Anim", 4);
+
                 OnAttack();
 
 
@@ -39,6 +47,7 @@ public class PlayerAtack : MonoBehaviour
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i].GetComponent<Monster>().TakeDamage(damage);
+            
         }
     }
      void OnDrawGizmosSelected()

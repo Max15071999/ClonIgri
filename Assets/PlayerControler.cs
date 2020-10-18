@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControler : MonoBehaviour
 {
-    public bool Graund = true;
+    public bool Ground = false;
+    public Transform GroundCheck;
+    public float GroundRadius;
+    public LayerMask IsGround;
     Rigidbody2D rb;
     Animator Anim;
     SpriteRenderer sr;
@@ -35,33 +38,24 @@ public class PlayerControler : MonoBehaviour
         else if (Input.GetAxis("Horizontal") < 0)
             sr.flipX = true;
 
-        if (Input.GetKeyDown(KeyCode.Space) && Graund == true)
-
-            Jump();
-
-
+      
 
     }
-    void Jump()
-    {
+    
 
-        Anim.SetInteger("Anim", 2);
-        rb.AddForce(transform.up * 6, ForceMode2D.Impulse);
-    }
-
-    private void Update()
+     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
        
-            Anim.SetInteger("Anim",4);
-            
-        }
+        Ground = Physics2D.OverlapCircle(GroundCheck.position, GroundRadius, IsGround);
+           if (Input.GetKeyDown(KeyCode.Space) && Ground)
+        {
 
+            Anim.SetInteger("Anim", 2);
+            rb.AddForce(transform.up * 8, ForceMode2D.Impulse);
 
-
+        }  
     }
-   private void OnTriggerEnter2D(Collider2D other )
+    private void OnTriggerEnter2D(Collider2D other )
     {
         if (other.tag == "Respawn")
         {
@@ -77,8 +71,14 @@ public class PlayerControler : MonoBehaviour
             Debug.Log("on trigger coins");
             Destroy(other.gameObject);
         }
+
     }
-   
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(GroundCheck.position, GroundRadius);
+    }
+
 
 
 
