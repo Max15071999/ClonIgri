@@ -41,7 +41,8 @@ public class PlayerControler : MonoBehaviour
         else if (Input.GetAxis("Horizontal") < 0)
             sr.flipX = true;
 
-      
+       
+
 
     }
     

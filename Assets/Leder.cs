@@ -11,10 +11,12 @@ public class Leder : MonoBehaviour
     public float distance;
     public LayerMask whatisLadder;
     private bool Climbing;
+    public Animator Anim;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Anim = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -26,6 +28,8 @@ public class Leder : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 Climbing = true;
+               
+
             }
         }
         else
@@ -38,10 +42,12 @@ public class Leder : MonoBehaviour
             inputVertical = Input.GetAxisRaw("Vertical");
             rb.velocity = new Vector2(rb.position.x, inputVertical * speed);
             rb.gravityScale = 0;
+            Anim.SetBool("Leder", true);
         }
         else
         {
             rb.gravityScale = 2;
+            Anim.SetBool("Leder", false);
         }
     }
 }
