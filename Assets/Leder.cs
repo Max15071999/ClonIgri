@@ -4,39 +4,44 @@ using UnityEngine;
 
 public class Leder : MonoBehaviour
 {
-    [SerializeField]
-    float speed = 5;
-    void OnTriggerStay2D(Collider2D other)
+
+    private float inputVertical;
+    public float speed;
+    Rigidbody2D rb;
+    public float distance;
+    public LayerMask whatisLadder;
+    private bool Climbing;
+    // Start is called before the first frame update
+    void Start()
     {
-        other.GetComponent<Rigidbody2D>().gravityScale = 0;
-        if (other.gameObject.CompareTag("Player"))
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        RaycastHit2D hitinfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatisLadder);
+
+        if (hitinfo.collider != null)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
+                Climbing = true;
             }
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -speed);
         }
         else
         {
-            other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            Climbing = false;
         }
-    }
-    void OnTriggerExit2D(Collider2D other)
-    {
-        other.GetComponent<Rigidbody2D>().gravityScale = 2;
-    }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Climbing == true && hitinfo.collider != null)
+        {
+            inputVertical = Input.GetAxisRaw("Vertical");
+            rb.velocity = new Vector2(rb.position.x, inputVertical * speed);
+            rb.gravityScale = 0;
+        }
+        else
+        {
+            rb.gravityScale = 2;
+        }
     }
 }

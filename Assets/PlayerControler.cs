@@ -13,6 +13,8 @@ public class PlayerControler : MonoBehaviour
     Animator Anim;
     SpriteRenderer sr;
     public GameObject YouDead;
+    public float speed;
+    public float jumpForce;
    
     void Start()
     {
@@ -26,7 +28,7 @@ public class PlayerControler : MonoBehaviour
     {
 
 
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * 5f, rb.velocity.y);
+        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
 
         if (Input.GetAxis("Horizontal") == 0)
             Anim.SetInteger("Anim", 0);
@@ -52,7 +54,7 @@ public class PlayerControler : MonoBehaviour
         {
 
             Anim.SetInteger("Anim", 2);
-            rb.AddForce(transform.up * 8, ForceMode2D.Impulse);
+            rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
 
         }
        
@@ -73,9 +75,9 @@ public class PlayerControler : MonoBehaviour
             Colect.theCoins += 1;
             Debug.Log("on trigger coins");
             Destroy(other.gameObject);
-        }
-
+        }     
     }
+       
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
