@@ -30,18 +30,22 @@ public class PlayerControler : MonoBehaviour
 
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
 
-        if (Input.GetAxis("Horizontal") == 0)
-            Anim.SetInteger("Anim", 0);
+      //  if (Input.GetAxis("Horizontal") == 0)
+          //  Anim.SetInteger("Anim", 0);
 
         if (Input.GetAxis("Horizontal") != 0)
-            Anim.SetInteger("Anim", 1);
+        {
+            //Anim.SetInteger("Anim", 1);
+            Anim.SetBool("Run", true);
+        }
+        else { Anim.SetBool("Run", false); }
 
         if (Input.GetAxis("Horizontal") > 0)
             sr.flipX = false;
         else if (Input.GetAxis("Horizontal") < 0)
             sr.flipX = true;
 
-       
+    
 
 
     }
@@ -54,7 +58,7 @@ public class PlayerControler : MonoBehaviour
            if (Input.GetKeyDown(KeyCode.Space) && Ground)
         {
 
-            Anim.SetInteger("Anim", 2);
+            Anim.SetTrigger("Jump");
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
 
         }

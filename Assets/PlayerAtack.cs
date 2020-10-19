@@ -27,16 +27,17 @@ public class PlayerAtack : MonoBehaviour
         {
         if (Input.GetKey(KeyCode.F))
             {
-                Anim.SetInteger("Anim", 4);
+                Anim.SetBool("Atacc", true);
 
                 OnAttack();
 
 
         }
          timeBtwAtack = startTimeBtwAtack;
-         }
+            
+        }
          else
-        {
+        {Anim.SetBool("Atacc", false);
             timeBtwAtack -= Time.deltaTime;
          }
       

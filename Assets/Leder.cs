@@ -43,6 +43,7 @@ public class Leder : MonoBehaviour
             rb.velocity = new Vector2(rb.position.x, inputVertical * speed);
             rb.gravityScale = 0;
             Anim.SetBool("Leder", true);
+            
         }
         else
         {
