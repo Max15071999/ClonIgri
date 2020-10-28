@@ -28,7 +28,7 @@ public class Leder : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 Climbing = true;
-                
+
 
             }
         }
@@ -43,12 +43,17 @@ public class Leder : MonoBehaviour
             rb.velocity = new Vector2(rb.position.x, inputVertical * speed);
             rb.gravityScale = 0;
             Anim.SetBool("Leder", true);
-            
+
         }
         else
         {
             rb.gravityScale = 2;
             Anim.SetBool("Leder", false);
         }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        other.GetComponent<Rigidbody2D>().gravityScale = 2;
     }
 }

@@ -60,10 +60,16 @@ public class PlayerControler : MonoBehaviour
         Ground = Physics2D.OverlapCircle(GroundCheck.position, GroundRadius, IsGround);
            if (Input.GetKeyDown(KeyCode.Space) && Ground)
         {
+ 
 
             Anim.SetTrigger("Jump");
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
 
+
+       
+            Anim.SetInteger("Anim",4);
+            
+ 
         }
        
         
