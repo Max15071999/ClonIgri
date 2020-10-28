@@ -23,7 +23,7 @@ public class PlayerControler : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-       
+        hp.theHelth = 100;
 
 
     }
@@ -74,11 +74,6 @@ public class PlayerControler : MonoBehaviour
         {
             YouDead.SetActive(true);
             hp.theHelth = 0;
-          
-
-
-
-
             Colect.theCoins = 0;
 
         }

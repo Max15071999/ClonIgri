@@ -19,7 +19,7 @@ public class Leder : MonoBehaviour
         Anim = GetComponent<Animator>();
     }
 
-     void FixedUpdate()
+    private void FixedUpdate()
     {
         RaycastHit2D hitinfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatisLadder);
 
@@ -28,7 +28,7 @@ public class Leder : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 Climbing = true;
-               
+                
 
             }
         }

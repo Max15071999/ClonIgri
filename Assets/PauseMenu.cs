@@ -11,10 +11,7 @@ public class PauseMenu : MainMeniu
     
 
 
-    private void Start()
-    {
-        
-    }
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -56,15 +53,11 @@ public class PauseMenu : MainMeniu
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
     }
-    public void Restsrt()
+   public void Restsrt()
     {
         SceneManager.LoadScene(1);
-        Colect.theCoins = 0;
-        hp.theHelth = 100;
-       
-        pauseMenuUI.SetActive(false);
-        YouDead.SetActive(false);
-        Time.timeScale = 1f;
+      
     }
+    
 
 }

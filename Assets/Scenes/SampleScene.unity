@@ -9817,11 +9817,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  distance: 2
+  distance: 1
   whatisLadder:
     serializedVersion: 2
     m_Bits: 1024
-  Anim: {fileID: 1537449971}
+  Anim: {fileID: 0}
 --- !u!1 &1547930467
 GameObject:
   m_ObjectHideFlags: 0
