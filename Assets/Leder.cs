@@ -19,7 +19,7 @@ public class Leder : MonoBehaviour
         Anim = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+     void FixedUpdate()
     {
         RaycastHit2D hitinfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatisLadder);
 

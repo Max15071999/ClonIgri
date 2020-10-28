@@ -25,7 +25,7 @@ public class PlayerAtack : MonoBehaviour
     {
         if (timeBtwAtack <= 0) 
         {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.F))
             {
                 Anim.SetBool("Atacc", true);
 

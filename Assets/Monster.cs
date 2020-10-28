@@ -30,7 +30,8 @@ public class Monster : MonoBehaviour
         {
             Colect.theCoins += 10;
             Destroy(gameObject);
-            
+            Ghoul.SetBool("Death", true);
+
         }
         if (Vector2.Distance(transform.position, point.position) < positionOfPatrol && angry == false)
         {
@@ -65,7 +66,7 @@ public class Monster : MonoBehaviour
     void Chill()
     {
         speed = 2;
-        Ghoul.SetInteger("Ghoul", 0);
+        Ghoul.SetBool("idle", true);
         if (transform.position.x > point.position.x + positionOfPatrol)
         {
             moveingRight = false;
@@ -86,8 +87,11 @@ public class Monster : MonoBehaviour
        
     }
     void Angry()
-    { Ghoul.SetInteger("Ghoul", 1);
-       
+    { Ghoul.SetBool("Atack", true);
+        Ghoul.SetBool("Uron", false);
+        Ghoul.SetBool("idle", false);
+        Ghoul.SetBool("Death", false);
+
         if (transform.position.x < player.transform.position.x)
             sr.flipX = true;
           else if ( (transform.position.x > player.transform.position.x))
@@ -106,11 +110,14 @@ public class Monster : MonoBehaviour
 
 
 
-        Ghoul.SetInteger("Ghoul", 0);
-       
+        Ghoul.SetBool("idle", true);
+        Ghoul.SetBool("Uron", false);
+        Ghoul.SetBool("Death", false);
     }
     public void TakeDamage( int damage)
     {
         health -= damage;
+        Ghoul.SetBool("Uron", true);
+       
     }
 }

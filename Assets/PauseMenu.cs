@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : MainMeniu
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     public GameObject YouDead;
     
 
+
+    private void Start()
+    {
+        
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -39,12 +44,15 @@ public class PauseMenu : MonoBehaviour
     }
     public void LoadMenu()
     {
+        
         SceneManager.LoadScene(0);
+        
     }
     public void NewGame()
     {
         SceneManager.LoadScene(1);
         Colect.theCoins = 0;
+        hp.theHelth = 100;
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
     }
@@ -52,6 +60,8 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         Colect.theCoins = 0;
+        hp.theHelth = 100;
+       
         pauseMenuUI.SetActive(false);
         YouDead.SetActive(false);
         Time.timeScale = 1f;

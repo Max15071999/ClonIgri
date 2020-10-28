@@ -15,13 +15,16 @@ public class PlayerControler : MonoBehaviour
     public GameObject YouDead;
     public float speed;
     public float jumpForce;
+  
    
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
        
+
 
     }
     private void FixedUpdate()
@@ -30,12 +33,12 @@ public class PlayerControler : MonoBehaviour
 
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
 
-      //  if (Input.GetAxis("Horizontal") == 0)
-          //  Anim.SetInteger("Anim", 0);
+        if (Input.GetAxis("Horizontal") == 0)
+            Anim.SetInteger("Anim", 0);
 
         if (Input.GetAxis("Horizontal") != 0)
         {
-            //Anim.SetInteger("Anim", 1);
+           
             Anim.SetBool("Run", true);
         }
         else { Anim.SetBool("Run", false); }
@@ -70,6 +73,10 @@ public class PlayerControler : MonoBehaviour
         if (other.tag == "Respawn")
         {
             YouDead.SetActive(true);
+            hp.theHelth = 0;
+          
+
+
 
 
             Colect.theCoins = 0;
@@ -78,7 +85,7 @@ public class PlayerControler : MonoBehaviour
         if (other.tag == "Coins") 
         { 
             Colect.theCoins += 1;
-            Debug.Log("on trigger coins");
+           
             Destroy(other.gameObject);
         }     
     }
