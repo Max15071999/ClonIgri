@@ -15,8 +15,9 @@ public class PlayerControler : MonoBehaviour
     public GameObject YouDead;
     public float speed;
     public float jumpForce;
-  
-   
+    public LayerMask whatisLadder;
+    private bool _isClimbing;
+
 
     void Start()
     {
@@ -48,7 +49,17 @@ public class PlayerControler : MonoBehaviour
         else if (Input.GetAxis("Horizontal") < 0)
             sr.flipX = true;
 
-    
+        RaycastHit2D hitinfo = Physics2D.Raycast(transform.position, Vector2.up, 1f, whatisLadder);
+
+        if (hitinfo.collider != null)
+        {
+            Debug.Log("=== true");
+            _isClimbing = true;
+        }
+        else
+        {
+            _isClimbing = false;
+        }
 
 
     }
@@ -88,9 +99,35 @@ public class PlayerControler : MonoBehaviour
             Colect.theCoins += 1;
            
             Destroy(other.gameObject);
-        }     
+        }
+
+        if (other.CompareTag("Lader"))
+        {
+            if (Input.GetAxis("Vertical") != 0 && _isClimbing)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, Input.GetAxis("Vertical") * speed);
+            }
+        }
     }
-       
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Lader") )
+        {
+            if (Input.GetAxis("Vertical") != 0 && _isClimbing)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, Input.GetAxis("Vertical") * speed);
+                Anim.SetBool("Leder", true);
+            }
+           
+        }
+        else
+        {
+            Anim.SetBool("Leder", false);
+        }
+
+        
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
