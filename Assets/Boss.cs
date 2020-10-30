@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Boss : MonoBehaviour
 {
     public float speed;
     public int positionOfPatrol;
@@ -13,13 +14,13 @@ public class Monster : MonoBehaviour
     bool angry = false;
     bool goback = false;
     SpriteRenderer sr;
-    Animator Ghoul;
+    Animator Bos;
     public int health;
     public float AngryPosition;
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        Ghoul = GetComponent<Animator>();
+        Bos = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -30,7 +31,7 @@ public class Monster : MonoBehaviour
         {
             Colect.theCoins += 10;
             Destroy(gameObject);
-            Ghoul.SetBool("Death", true);
+            Bos.SetBool("Death", true);
 
         }
         if (Vector2.Distance(transform.position, point.position) < positionOfPatrol && angry == false)
@@ -66,7 +67,7 @@ public class Monster : MonoBehaviour
     void Chill()
     {
         speed = 2;
-        Ghoul.SetBool("idle", true);
+        Bos.SetBool("Run", true);
         if (transform.position.x > point.position.x + positionOfPatrol)
         {
             moveingRight = false;
@@ -89,10 +90,10 @@ public class Monster : MonoBehaviour
     }
     void Angry()
     {
-        Ghoul.SetBool("Atack", true);
-        Ghoul.SetBool("Uron", false);
-        Ghoul.SetBool("idle", false);
-        Ghoul.SetBool("Death", false);
+        Bos.SetBool("Atacc", true);
+        Bos.SetBool("Uron", false);
+        Bos.SetBool("Run", false);
+        Bos.SetBool("Death", false);
 
         if (transform.position.x < player.transform.position.x)
             sr.flipX = true;
@@ -112,14 +113,14 @@ public class Monster : MonoBehaviour
 
 
 
-        Ghoul.SetBool("idle", true);
-        Ghoul.SetBool("Uron", false);
-        Ghoul.SetBool("Death", false);
+        Bos.SetBool("Run", true);
+        Bos.SetBool("Uron", false);
+        Bos.SetBool("Death", false);
     }
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Ghoul.SetBool("Uron", true);
+        Bos.SetBool("Uron", true);
 
     }
 }

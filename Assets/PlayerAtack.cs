@@ -48,7 +48,8 @@ public class PlayerAtack : MonoBehaviour
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i].GetComponent<Monster>().TakeDamage(damage);
-            
+            enemies[i].GetComponent<Boss>().TakeDamage(damage);
+
         }
     }
      void OnDrawGizmosSelected()
