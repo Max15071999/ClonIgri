@@ -90,7 +90,8 @@ public class Boss : MonoBehaviour
     }
     void Angry()
     {
-        Bos.SetBool("Atacc", true);
+
+        Bos.SetBool("Shot", true);
         Bos.SetBool("Uron", false);
         Bos.SetBool("Run", false);
         Bos.SetBool("Death", false);
@@ -117,6 +118,7 @@ public class Boss : MonoBehaviour
         Bos.SetBool("Uron", false);
         Bos.SetBool("Death", false);
     }
+    
     public void TakeDamage(int damage)
     {
         health -= damage;

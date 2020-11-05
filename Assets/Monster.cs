@@ -30,7 +30,7 @@ public class Monster : MonoBehaviour
         {
             Colect.theCoins += 10;
             Destroy(gameObject);
-            Ghoul.SetBool("Death", true);
+            Ghoul.SetTrigger("Death");
 
         }
         if (Vector2.Distance(transform.position, point.position) < positionOfPatrol && angry == false)
@@ -90,7 +90,6 @@ public class Monster : MonoBehaviour
     void Angry()
     {
         Ghoul.SetBool("Atack", true);
-        Ghoul.SetBool("Uron", false);
         Ghoul.SetBool("idle", false);
         Ghoul.SetBool("Death", false);
 
@@ -113,13 +112,12 @@ public class Monster : MonoBehaviour
 
 
         Ghoul.SetBool("idle", true);
-        Ghoul.SetBool("Uron", false);
         Ghoul.SetBool("Death", false);
     }
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Ghoul.SetBool("Uron", true);
+        Ghoul.SetTrigger("Uron");
 
     }
 }

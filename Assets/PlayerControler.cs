@@ -53,12 +53,15 @@ public class PlayerControler : MonoBehaviour
 
         if (hitinfo.collider != null)
         {
-            Debug.Log("=== true");
-            _isClimbing = true;
+            if (Input.GetAxis("Vertical") != 0 )
+            {
+                rb.velocity = new Vector2(rb.velocity.x, Input.GetAxis("Vertical") * speed);
+                Anim.SetBool("Leder", true);
+            }
         }
         else
         {
-            _isClimbing = false;
+            Anim.SetBool("Leder", false);
         }
 
 
@@ -100,33 +103,22 @@ public class PlayerControler : MonoBehaviour
            
             Destroy(other.gameObject);
         }
+        if (other.tag == "Keys")
+        {
+            Keys.theKeys += 1;
 
-        if (other.CompareTag("Lader"))
-        {
-            if (Input.GetAxis("Vertical") != 0 && _isClimbing)
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "Door"&& Keys.theKeys == 3 )
+            if (Input.GetKeyUp(KeyCode.E))
             {
-                rb.velocity = new Vector2(rb.velocity.x, Input.GetAxis("Vertical") * speed);
-            }
-        }
+                {
+              SceneManager.LoadScene(3);
+                }
+            
+            } 
     }
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Lader") )
-        {
-            if (Input.GetAxis("Vertical") != 0 && _isClimbing)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, Input.GetAxis("Vertical") * speed);
-                Anim.SetBool("Leder", true);
-            }
-           
-        }
-        else
-        {
-            Anim.SetBool("Leder", false);
-        }
-
-        
-    }
+   
 
     void OnDrawGizmosSelected()
     {

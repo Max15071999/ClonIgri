@@ -7,6 +7,8 @@ TagManager:
   - Graund
   - Coins
   - Lader
+  - Keys
+  - Door
   layers:
   - Default
   - TransparentFX
