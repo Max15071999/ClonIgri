@@ -14,8 +14,18 @@ public class Monster : MonoBehaviour
     bool goback = false;
     SpriteRenderer sr;
     Animator Ghoul;
-    public int health;
+    [Header("Урон")]
+    [Space]
+    [SerializeField] private float damage;
+    [SerializeField] private float reboot;
+    [SerializeField] private float attackRange;
+    [SerializeField] private Transform attackPose;
+    [SerializeField] private LayerMask enemyMask;
+    private bool attack = true;
     public float AngryPosition;
+    [SerializeField] private float health;
+
+    
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -26,13 +36,6 @@ public class Monster : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0)
-        {
-            Colect.theCoins += 10;
-            Destroy(gameObject);
-            Ghoul.SetTrigger("Death");
-
-        }
         if (Vector2.Distance(transform.position, point.position) < positionOfPatrol && angry == false)
         {
             chill = true;
@@ -89,6 +92,7 @@ public class Monster : MonoBehaviour
     }
     void Angry()
     {
+        Attack();
         Ghoul.SetBool("Atack", true);
         Ghoul.SetBool("idle", false);
         Ghoul.SetBool("Death", false);
@@ -114,10 +118,34 @@ public class Monster : MonoBehaviour
         Ghoul.SetBool("idle", true);
         Ghoul.SetBool("Death", false);
     }
-    public void TakeDamage(int damage)
+ 
+    public void Attack()
+    {
+        if (attack == true)
+        {
+            attack = false;
+            Ghoul.SetTrigger("Atack");
+            Collider2D[] enemiscToDamage = Physics2D.OverlapCircleAll(attackPose.position, attackRange, enemyMask);
+            for (int i = 0; i < enemiscToDamage.Length; i++)
+            {
+                enemiscToDamage[i].GetComponent<PlayerControler>().Damage(damage);
+            }
+            Invoke("AttackReset", reboot);
+        }
+    }
+    private void AttackReset()
+    {
+        attack = true;
+    }
+
+
+    public void Damage(float damage)
     {
         health -= damage;
         Ghoul.SetTrigger("Uron");
-
+        if (health <= 0)
+            Destroy(gameObject);
+       
     }
+ 
 }

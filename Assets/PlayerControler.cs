@@ -16,9 +16,15 @@ public class PlayerControler : MonoBehaviour
     public float speed;
     public float jumpForce;
     public LayerMask whatisLadder;
-    private bool _isClimbing;
-
-
+    
+    
+    [SerializeField] private float damage;
+    [SerializeField] private float reboot;
+    [SerializeField] private float attackRange;
+    [SerializeField] private float health;
+    [SerializeField] private Transform attackPose;
+    [SerializeField] private LayerMask enemyMask;
+    private bool attack = true;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,12 +41,13 @@ public class PlayerControler : MonoBehaviour
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
 
         if (Input.GetAxis("Horizontal") == 0)
-            Anim.SetInteger("Anim", 0);
 
+            Anim.SetBool("Run", true);
         if (Input.GetAxis("Horizontal") != 0)
         {
            
             Anim.SetBool("Run", true);
+            Anim.SetBool("Uron", false);
         }
         else { Anim.SetBool("Run", false); }
 
@@ -63,6 +70,12 @@ public class PlayerControler : MonoBehaviour
         {
             Anim.SetBool("Leder", false);
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            attack = true;
+            Attack();
+
+        }
 
 
     }
@@ -74,19 +87,10 @@ public class PlayerControler : MonoBehaviour
         Ground = Physics2D.OverlapCircle(GroundCheck.position, GroundRadius, IsGround);
            if (Input.GetKeyDown(KeyCode.Space) && Ground)
         {
- 
-
             Anim.SetTrigger("Jump");
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-
-
-       
-            Anim.SetInteger("Anim",4);
-            
- 
         }
        
-        
     }
     private void OnTriggerEnter2D(Collider2D other )
     {
@@ -95,6 +99,7 @@ public class PlayerControler : MonoBehaviour
             YouDead.SetActive(true);
             hp.theHelth = 0;
             Colect.theCoins = 0;
+            Keys.theKeys = 0;
 
         }
         if (other.tag == "Coins") 
@@ -110,15 +115,43 @@ public class PlayerControler : MonoBehaviour
             Destroy(other.gameObject);
         }
         if (other.tag == "Door"&& Keys.theKeys == 3 )
-            if (Input.GetKeyUp(KeyCode.E))
-            {
+           
                 {
               SceneManager.LoadScene(3);
                 }
             
-            } 
+            
     }
+    public void Attack()
+    {
+        if (attack == true)
+        {
+            attack = false;
+            Anim.SetTrigger("Atacc");
+            Collider2D[] enemiscToDamage = Physics2D.OverlapCircleAll(attackPose.position, attackRange, enemyMask);
+            for (int i = 0; i < enemiscToDamage.Length; i++)
+            {
+                enemiscToDamage[i].GetComponent<Monster>().Damage(damage);
+            }
+            Invoke("AttackReset", reboot);
+        }
+    }
+    public void Damage(float damage)
+    {
+        health -= damage;
+        hp.theHelth = health;
+        Anim.SetTrigger("Uron");
+        Anim.SetBool("Run",false);
+
+
+        if (health <= 0)
+            Destroy(gameObject);
+
+    }
+    
+	
    
+	
 
     void OnDrawGizmosSelected()
     {

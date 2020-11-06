@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class hp : MonoBehaviour
 {
-    public static int theHelth=100;
+    public static float theHelth=100;
     public Text textHealth;
     void Start()
     {
