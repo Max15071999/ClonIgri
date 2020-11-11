@@ -9,6 +9,7 @@ TagManager:
   - Lader
   - Keys
   - Door
+  - Obuci
   layers:
   - Default
   - TransparentFX

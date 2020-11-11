@@ -117,8 +117,8 @@ public class PlayerControler : MonoBehaviour
         if (other.tag == "Door"&& Keys.theKeys == 3 )
            
                 {
-              SceneManager.LoadScene(3);
-                }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
             
             
     }
