@@ -93,7 +93,7 @@ public class Monster : MonoBehaviour
     void Angry()
     {
         Attack();
-        Ghoul.SetBool("Atack", true);
+        
         Ghoul.SetBool("idle", false);
         Ghoul.SetBool("Death", false);
 
@@ -124,7 +124,7 @@ public class Monster : MonoBehaviour
         if (attack == true)
         {
             attack = false;
-            Ghoul.SetTrigger("Atack");
+            Ghoul.SetBool("Atack", true);
             Collider2D[] enemiscToDamage = Physics2D.OverlapCircleAll(attackPose.position, attackRange, enemyMask);
             for (int i = 0; i < enemiscToDamage.Length; i++)
             {
@@ -136,6 +136,7 @@ public class Monster : MonoBehaviour
     private void AttackReset()
     {
         attack = true;
+        Chill();
     }
 
 

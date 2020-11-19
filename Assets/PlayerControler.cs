@@ -16,7 +16,7 @@ public class PlayerControler : MonoBehaviour
     public float speed;
     public float jumpForce;
     public LayerMask whatisLadder;
-    
+    public Joystick joystick;
     
     [SerializeField] private float damage;
     [SerializeField] private float reboot;
@@ -38,12 +38,12 @@ public class PlayerControler : MonoBehaviour
     {
 
 
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
+        rb.velocity = new Vector2(joystick.Horizontal * speed, rb.velocity.y);
 
-        if (Input.GetAxis("Horizontal") == 0)
+        if (joystick.Horizontal == 0)
 
             Anim.SetBool("Run", true);
-        if (Input.GetAxis("Horizontal") != 0)
+        if (joystick.Horizontal != 0)
         {
            
             Anim.SetBool("Run", true);
@@ -51,9 +51,9 @@ public class PlayerControler : MonoBehaviour
         }
         else { Anim.SetBool("Run", false); }
 
-        if (Input.GetAxis("Horizontal") > 0)
+        if (joystick.Horizontal > 0)
             sr.flipX = false;
-        else if (Input.GetAxis("Horizontal") < 0)
+        else if (joystick.Horizontal < 0)
             sr.flipX = true;
 
         RaycastHit2D hitinfo = Physics2D.Raycast(transform.position, Vector2.up, 1f, whatisLadder);
@@ -70,22 +70,27 @@ public class PlayerControler : MonoBehaviour
         {
             Anim.SetBool("Leder", false);
         }
-        if (Input.GetKeyDown(KeyCode.F))
+       
+       
+
+
+    }
+    public void ButtAtack()
+    { 
+        if (joystick.Horizontal == 0)
         {
             attack = true;
             Attack();
 
         }
 
-
     }
-    
 
-     void Update()
+     public void Jump()
     {
        
         Ground = Physics2D.OverlapCircle(GroundCheck.position, GroundRadius, IsGround);
-           if (Input.GetKeyDown(KeyCode.Space) && Ground)
+           if (Ground)
         {
             Anim.SetTrigger("Jump");
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
@@ -118,6 +123,7 @@ public class PlayerControler : MonoBehaviour
            
                 {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            Keys.theKeys = 0;
         }
             
             
@@ -133,7 +139,7 @@ public class PlayerControler : MonoBehaviour
             {
                 enemiscToDamage[i].GetComponent<Monster>().Damage(damage);
             }
-            Invoke("AttackReset", reboot);
+            
         }
     }
     public void Damage(float damage)

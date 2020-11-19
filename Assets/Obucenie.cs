@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Obucenie : MonoBehaviour
 {
     public GameObject Instruction;
+    public GameObject Instruction1;
     SpriteRenderer sr;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,12 @@ public class Obucenie : MonoBehaviour
         if (other.tag == "Obuci")
         {
             Instruction.SetActive(true);
+
+
+        }
+        if (other.tag == "Obuci1")
+        {
+            Instruction1.SetActive(true);
 
 
         }
@@ -34,6 +41,11 @@ public class Obucenie : MonoBehaviour
 
         {
             Instruction.SetActive(false);
+        }
+        if (other.tag == "Obuci1")
+
+        {
+            Instruction1.SetActive(false);
         }
     }
     // Update is called once per frame

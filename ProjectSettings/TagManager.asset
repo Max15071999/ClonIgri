@@ -10,6 +10,7 @@ TagManager:
   - Keys
   - Door
   - Obuci
+  - Obuci1
   layers:
   - Default
   - TransparentFX

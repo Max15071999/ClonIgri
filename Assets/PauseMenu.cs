@@ -14,17 +14,17 @@ public class PauseMenu : MainMeniu
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+       
+    }
+    public void ButtonPause() 
+    {
+        if (GameIsPaused)
         {
-            if (GameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Paused();
-            }
-
+            Resume();
+        }
+        else
+        {
+            Paused();
         }
     }
     public void Resume()
