@@ -60,9 +60,9 @@ public class PlayerControler : MonoBehaviour
 
         if (hitinfo.collider != null)
         {
-            if (Input.GetAxis("Vertical") != 0 )
+            if (joystick.Vertical != 0 )
             {
-                rb.velocity = new Vector2(rb.velocity.x, Input.GetAxis("Vertical") * speed);
+                rb.velocity = new Vector2(rb.velocity.x, joystick.Vertical * speed);
                 Anim.SetBool("Leder", true);
             }
         }
