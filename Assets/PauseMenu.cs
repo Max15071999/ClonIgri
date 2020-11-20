@@ -55,8 +55,8 @@ public class PauseMenu : MainMeniu
     }
    public void Restsrt()
     {
-        SceneManager.LoadScene(1);
-      
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex );
+
     }
     
 
