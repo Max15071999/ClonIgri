@@ -52,6 +52,7 @@ public class PauseMenu : MainMeniu
         hp.theHelth = 100;
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
+        Keys.theKeys = 0;
     }
    public void Restsrt()
     {

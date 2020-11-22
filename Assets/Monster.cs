@@ -136,7 +136,7 @@ public class Monster : MonoBehaviour
     private void AttackReset()
     {
         attack = true;
-        Chill();
+      
     }
 
 

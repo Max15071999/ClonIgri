@@ -37,7 +37,7 @@ public class PlayerControler : MonoBehaviour
     private void FixedUpdate()
     {
 
-
+       
         rb.velocity = new Vector2(joystick.Horizontal * speed, rb.velocity.y);
 
         if (joystick.Horizontal == 0)
@@ -88,6 +88,9 @@ public class PlayerControler : MonoBehaviour
 
      public void Jump()
     {
+        
+
+       
        
         Ground = Physics2D.OverlapCircle(GroundCheck.position, GroundRadius, IsGround);
            if (Ground)
@@ -95,7 +98,7 @@ public class PlayerControler : MonoBehaviour
             Anim.SetTrigger("Jump");
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         }
-       
+        
     }
     private void OnTriggerEnter2D(Collider2D other )
     {
@@ -150,8 +153,13 @@ public class PlayerControler : MonoBehaviour
         Anim.SetBool("Run",false);
 
 
-        if (health <= 0)
-            Destroy(gameObject);
+        if (health <= 0) { YouDead.SetActive(true);
+        hp.theHelth = 0;
+        Colect.theCoins = 0;
+        Keys.theKeys = 0; 
+        Destroy(gameObject);}
+            
+       
 
     }
     
