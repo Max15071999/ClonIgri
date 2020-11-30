@@ -100,29 +100,31 @@ public class PlayerControler : MonoBehaviour
         }
         
     }
-    private void OnTriggerEnter2D(Collider2D other )
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.tag == "Respawn")
+        if (other.gameObject.CompareTag("Respawn"))
         {
             YouDead.SetActive(true);
             hp.theHelth = 0;
             Colect.theCoins = 0;
             Keys.theKeys = 0;
+            Time.timeScale = 0f;
+
 
         }
-        if (other.tag == "Coins") 
+        if (other.gameObject.CompareTag("Coins")) 
         { 
             Colect.theCoins += 1;
            
             Destroy(other.gameObject);
         }
-        if (other.tag == "Keys")
+        if (other.gameObject.CompareTag("Keys"))
         {
             Keys.theKeys += 1;
 
             Destroy(other.gameObject);
         }
-        if (other.tag == "Door"&& Keys.theKeys == 3 )
+        if (other.gameObject.CompareTag("Door")&& Keys.theKeys == 3 )
            
                 {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
